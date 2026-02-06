@@ -3,10 +3,13 @@ import React, { use } from "react";
 import LogInLottie from "../assets/Login.json";
 import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const LogIn = () => {
   const { signInUser,googleProvider } = use(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state || '/';
   const handleLogIn = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -15,6 +18,7 @@ const LogIn = () => {
     //  console.log(LogInData);
     signInUser(email, password)
       .then((result) => {
+        navigate(from);
         const user = result.user;
         if (user) {
           Swal.fire({

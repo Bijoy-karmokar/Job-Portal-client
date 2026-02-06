@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Banner from '../components/Banner';
 import HotJobs from '../components/HotJobs';
 
@@ -9,7 +9,9 @@ const Home = () => {
     return (
         <div>
             <Banner></Banner>
-            <HotJobs allJobs={allJobs}></HotJobs>
+            <Suspense fallback={"Loading ......"}>
+                <HotJobs allJobs={allJobs}></HotJobs>
+            </Suspense>
         </div>
     );
 };

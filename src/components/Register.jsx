@@ -3,12 +3,14 @@ import Lottie from "lottie-react";
 import registerLottie from "../assets/Register.json";
 import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Register = () => {
   const { createUser, googleProvider } = use(AuthContext);
   const location = useLocation();
-  console.log(location);
+  const navigate = useNavigate();
+  const from = location.state || '/';
+  // console.log(location);
 
   const handleRegister = (e) => {
     const form = e.target;
@@ -28,6 +30,7 @@ const Register = () => {
             timer: 1500,
           });
         }
+        navigate(from);
       })
       .catch((error) => {
         console.log(error);
@@ -35,7 +38,8 @@ const Register = () => {
   };
 
   const handleGoogle = () => {
-    googleProvider().then((result) => {
+    googleProvider()
+    .then((result) => {
       if (result.user) {
         Swal.fire({
           position: "center",
