@@ -6,7 +6,7 @@ const MainLayouts = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <div>
+            <div className='max-w-7xl mx-auto'>
                 <Outlet></Outlet>
             </div>
         </div>
