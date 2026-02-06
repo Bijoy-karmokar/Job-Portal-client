@@ -1,12 +1,41 @@
-import React from "react";
-import logo from "../assets/logo.svg"
+import React, { use } from "react";
+import logo from "../assets/logo.svg";
 import { Link, NavLink } from "react-router";
 import Button from "./Button";
+import { AuthContext } from "../context/AuthContext";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
-    const links =<>
-     <li><NavLink className={({isActive})=>isActive? "text-lg text-white bg-blue-600":""} to="/">Home</NavLink></li>
+  const { user, logOut } = use(AuthContext);
+  const handleSignOut = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "LogOut successfully.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const links = (
+    <>
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-lg text-white bg-blue-600" : ""
+          }
+          to="/"
+        >
+          Home
+        </NavLink>
+      </li>
     </>
+  );
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -32,26 +61,32 @@ const Navbar = () => {
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-           {
-            links
-           }
+            {links}
           </ul>
         </div>
         <div className="flex items-center gap-1">
-            <img className="w-20" src={logo} alt="" />
-            <Link to="/" className="text-3xl font-bold ">Job Portal</Link>
+          <img className="w-20" src={logo} alt="" />
+          <Link to="/" className="text-3xl font-bold ">
+            Job Portal
+          </Link>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-         {
-           links
-         }
-        </ul>
+        <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end gap-2">
-        <Link to="/logIn"><Button type={"LogIn"}></Button></Link>
-        <Link to="/register"><Button type={"Register"}></Button></Link>
+        {user ? (
+          <Button type={"SignOut"} onClick={handleSignOut}></Button>
+        ) : (
+          <>
+            <Link to="/logIn">
+              <Button type={"LogIn"}></Button>
+            </Link>
+            <Link to="/register">
+              <Button type={"Register"}></Button>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

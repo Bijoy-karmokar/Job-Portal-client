@@ -1,9 +1,10 @@
 import React from "react";
 
-const Button = ({type}) => {
+const Button = ({type,onClick}) => {
   return (
     <div>
       <button
+        onClick={onClick}
         className="px-5 py-2.5 relative rounded group font-medium text-white  inline-block"
       >
         <span className="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500"></span>
