@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router";
 
 const LogIn = () => {
-  const { signInUser } = use(AuthContext);
+  const { signInUser,googleProvider } = use(AuthContext);
   const handleLogIn = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -30,6 +30,20 @@ const LogIn = () => {
         console.log(error);
       });
   };
+  
+  const handleGoogle = () => {
+      googleProvider().then((result) => {
+        if (result.user) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your socail login successfylly",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+    };
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -70,7 +84,7 @@ const LogIn = () => {
               </p>
 
               {/* Google */}
-              <button className="btn bg-white text-black border-[#e5e5e5]">
+              <button onClick={handleGoogle} className="btn bg-white text-black border-[#e5e5e5]">
                 <svg
                   aria-label="Google logo"
                   width="16"

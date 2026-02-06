@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { Link, useLocation } from "react-router";
 
 const Register = () => {
-  const { createUser } = use(AuthContext);
+  const { createUser, googleProvider } = use(AuthContext);
   const location = useLocation();
   console.log(location);
 
@@ -34,6 +34,19 @@ const Register = () => {
       });
   };
 
+  const handleGoogle = () => {
+    googleProvider().then((result) => {
+      if (result.user) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your socail login successfylly",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -78,9 +91,17 @@ const Register = () => {
               />
               <button className="btn btn-neutral mt-4">Register</button>
 
-              <p>Already have an Account?Please <Link className="btn btn-link" to={"/logIn"}>LogIn</Link> </p>
+              <p>
+                Already have an Account?Please{" "}
+                <Link className="btn btn-link" to={"/logIn"}>
+                  LogIn
+                </Link>{" "}
+              </p>
               {/* Google */}
-              <button className="btn bg-white text-black border-[#e5e5e5]">
+              <button
+                onClick={handleGoogle}
+                className="btn bg-white text-black border-[#e5e5e5]"
+              >
                 <svg
                   aria-label="Google logo"
                   width="16"
