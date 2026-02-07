@@ -8,7 +8,7 @@ const Banner = () => {
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
        <div className="flex-1">
-         <motion.img animate={{y:[0,100,0]}} transition={{duration:5, repeat:Infinity}} src={team1} className="max-w-sm rounded-t-4xl border-b-8 border-s-8 border-blue-700 rounded-lg shadow-2xl" />
+         <motion.img animate={{y:[0,100,0]}} transition={{duration:5, repeat:Infinity ,delay:1}} src={team1} className="max-w-sm rounded-t-4xl border-b-8 border-s-8 border-blue-700 rounded-lg shadow-2xl" />
          <motion.img animate={{x:[50,100,50]}} transition={{duration:5, repeat:Infinity,delay:1}} src={team2} className="max-w-sm rounded-t-4xl border-b-8 border-s-8 border-blue-700 rounded-lg shadow-2xl" />
        </div>
         <div className="flex-1">

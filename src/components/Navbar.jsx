@@ -34,6 +34,18 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
+      {
+        user &&  <li>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-lg text-white bg-blue-600" : ""
+          }
+          to="/applications"
+        >
+          My Application
+        </NavLink>
+      </li>
+      }
     </>
   );
   return (
